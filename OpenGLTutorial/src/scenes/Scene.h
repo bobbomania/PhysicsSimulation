@@ -18,7 +18,6 @@ namespace scene {
 		virtual void OnUpdate(float deltaTime) {}
 		virtual void OnRender() {}
 		virtual void OnImGuiRender() {}
-
 	};
 
 	class SceneMenu : public Scene
