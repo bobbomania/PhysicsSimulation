@@ -1,0 +1,3 @@
+﻿  SandScene.cpp
+C:\Users\spont\Documents\Projects\General\C++\Simulation\OpenGLTutorial\src\Scenes\SandScene.cpp(31,41): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+  OpenGLTutorial.vcxproj -> C:\Users\spont\Documents\Projects\General\C++\Simulation\Debug\Simulation.exe
