@@ -69,10 +69,7 @@
     <ClCompile Include="src\scenes\SandScene.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\physicsObjects\Sand.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\physicsObjects\Solid.cpp">
+    <ClCompile Include="src\physicsObjects\World.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -1391,13 +1388,7 @@
     <ClInclude Include="src\scenes\SandScene.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\physicsObjects\Solid.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\physicsObjects\World.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\physicsObjects\Sand.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
