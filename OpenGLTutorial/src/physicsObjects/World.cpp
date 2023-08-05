@@ -13,8 +13,10 @@ namespace world {
 		glm::vec2 pos = particle.Pos;
 		std::vector<int> indices;
 
-		for (int xShift = -particle.radius; xShift < particle.radius; xShift += particle.radius * 2) {
-			for (int yShift = -particle.radius; yShift < particle.radius; yShift += particle.radius * 2) {
+		float r = particle.radius;
+
+		for (int xShift = -r; xShift < r; xShift += r * 2) {
+			for (int yShift = -r; yShift < r; yShift += r * 2) {
 				indices.push_back(CoordToIndex(pos + glm::vec2(xShift, yShift)));
 			}
 		}
@@ -31,6 +33,26 @@ namespace world {
 		return (col - 1) * GRID_HEIGHT + row; // top to bottom, left to right
 	}
 
+	void World::SimulateCollision(Particle p1, Particle p2)
+	{
+		// revert them to original pre-collision position, also could move them 1/2 distance between centers
+		p1.Pos += -p1.Vel * m_Delta;
+		p2.Pos += -p2.Vel * m_Delta;
+
+		// calculate new velocity with conservation of momentum and kinetic energy
+
+		float m1 = m_Solids.getMass(p1);
+		float m2 = m_Solids.getMass(p2);
+
+		float totMass = m1 + m2;
+
+		glm::vec2 deltaVelocity = p1.Vel - p2.Vel;
+		glm::vec2 totMomentum = m1 * p1.Vel + m2 * p2.Vel;
+
+		p1.Vel = (m_Solids.isImmovable(p1)) ? (m_ZeroVector) : ((m_Solids.getRestitution(p1) * m2 * -1 * deltaVelocity + totMomentum) / totMass);
+		p2.Vel = (m_Solids.isImmovable(p2)) ? (m_ZeroVector) : ((m_Solids.getRestitution(p2) * m1 * deltaVelocity + totMomentum) / totMass);
+	}
+
 	void World::Update()
 	{
 		ClearGrid();
@@ -42,9 +64,9 @@ namespace world {
 			
 			particle = m_Particles[i];
 
-			particle.Pos += m_Delta * particle.Vel;
-			particle.Vel += m_Delta * particle.Acc;
-			particle.Acc += GRAVITY_ACC; // temp
+			particle.Pos += particle.Vel * m_Delta;
+			particle.Vel += particle.Acc * m_Delta;
+			particle.Acc += (m_Solids.isImmovable(particle) ? 0 : GRAVITY_ACC); // temp
 
 			// update grid cells with new particle
 			for (int gridIndex : ParticleToIndices(particle)) {
@@ -74,7 +96,23 @@ namespace world {
 					Particle p1 = m_Particles[i];
 					Particle p2 = m_Particles[j];
 
-					
+					int r = p1.radius;
+
+					glm::vec2 p2Pos = p2.Pos;
+					glm::vec2 corner;
+					// if a corner of the collision box is within the other square, collision detected
+					for (int xShift = -r; xShift < r; xShift += r * 2) {
+						for (int yShift = -r; yShift < r; yShift += r * 2) {
+							
+							corner = p1.Pos + glm::vec2(xShift, yShift);
+							if (corner.x < p2Pos.x + r &&
+								corner.x > p2Pos.x - r &&
+								corner.y < p2Pos.y + r &&
+								corner.y > p2Pos.y - r) {
+								SimulateCollision(p1, p2);
+							}							
+						}
+					}
 
 				}
 
