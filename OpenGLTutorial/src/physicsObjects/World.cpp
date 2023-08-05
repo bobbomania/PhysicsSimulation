@@ -2,6 +2,7 @@
 
 namespace world {
 
+	// resets the uniform grid
 	void World::ClearGrid()
 	{
 		memset(m_UniformGrid.data(), 0, sizeof(m_UniformGrid.data()));
@@ -15,8 +16,8 @@ namespace world {
 
 		float r = particle.radius;
 
-		for (int xShift = -r; xShift < r; xShift += r * 2) {
-			for (int yShift = -r; yShift < r; yShift += r * 2) {
+		for (float xShift = -r; xShift < r; xShift += r * 2) {
+			for (float yShift = -r; yShift < r; yShift += r * 2) {
 				indices.push_back(CoordToIndex(pos + glm::vec2(xShift, yShift)));
 			}
 		}
@@ -66,7 +67,7 @@ namespace world {
 
 			particle.Pos += particle.Vel * m_Delta;
 			particle.Vel += particle.Acc * m_Delta;
-			particle.Acc += (m_Solids.isImmovable(particle) ? 0 : GRAVITY_ACC); // temp
+			particle.Acc += (m_Solids.isImmovable(particle) ? m_ZeroVector : GRAVITY_ACC); // temp
 
 			// update grid cells with new particle
 			for (int gridIndex : ParticleToIndices(particle)) {
@@ -100,9 +101,10 @@ namespace world {
 
 					glm::vec2 p2Pos = p2.Pos;
 					glm::vec2 corner;
+
 					// if a corner of the collision box is within the other square, collision detected
-					for (int xShift = -r; xShift < r; xShift += r * 2) {
-						for (int yShift = -r; yShift < r; yShift += r * 2) {
+					for (float xShift = -r; xShift < r; xShift += r * 2) {
+						for (float yShift = -r; yShift < r; yShift += r * 2) {
 							
 							corner = p1.Pos + glm::vec2(xShift, yShift);
 							if (corner.x < p2Pos.x + r &&
@@ -118,5 +120,11 @@ namespace world {
 
 			}
 		}
+	}
+
+	// draws all objects in the world
+	void World::Draw(const Renderer& renderer)
+	{
+
 	}
 }

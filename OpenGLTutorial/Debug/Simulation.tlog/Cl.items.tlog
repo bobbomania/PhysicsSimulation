@@ -1,8 +1,10 @@
 C:\Users\spont\Documents\Projects\General\C++\Simulation\OpenGLTutorial\src\Application.cpp;C:\Users\spont\Documents\Projects\General\C++\Simulation\OpenGLTutorial\Debug\Application.obj
 C:\Users\spont\Documents\Projects\General\C++\Simulation\OpenGLTutorial\src\IndexBuffer.cpp;C:\Users\spont\Documents\Projects\General\C++\Simulation\OpenGLTutorial\Debug\IndexBuffer.obj
+C:\Users\spont\Documents\Projects\General\C++\Simulation\OpenGLTutorial\src\physicsObjects\Solid.cpp;C:\Users\spont\Documents\Projects\General\C++\Simulation\OpenGLTutorial\Debug\Solid.obj
+C:\Users\spont\Documents\Projects\General\C++\Simulation\OpenGLTutorial\src\physicsObjects\World.cpp;C:\Users\spont\Documents\Projects\General\C++\Simulation\OpenGLTutorial\Debug\World.obj
 C:\Users\spont\Documents\Projects\General\C++\Simulation\OpenGLTutorial\src\Renderer.cpp;C:\Users\spont\Documents\Projects\General\C++\Simulation\OpenGLTutorial\Debug\Renderer.obj
-C:\Users\spont\Documents\Projects\General\C++\Simulation\OpenGLTutorial\src\Scenes\Scene.cpp;C:\Users\spont\Documents\Projects\General\C++\Simulation\OpenGLTutorial\Debug\Scene.obj
-C:\Users\spont\Documents\Projects\General\C++\Simulation\OpenGLTutorial\src\Scenes\SandScene.cpp;C:\Users\spont\Documents\Projects\General\C++\Simulation\OpenGLTutorial\Debug\SandScene.obj
+C:\Users\spont\Documents\Projects\General\C++\Simulation\OpenGLTutorial\src\scenes\Scene.cpp;C:\Users\spont\Documents\Projects\General\C++\Simulation\OpenGLTutorial\Debug\Scene.obj
+C:\Users\spont\Documents\Projects\General\C++\Simulation\OpenGLTutorial\src\scenes\SandScene.cpp;C:\Users\spont\Documents\Projects\General\C++\Simulation\OpenGLTutorial\Debug\SandScene.obj
 C:\Users\spont\Documents\Projects\General\C++\Simulation\OpenGLTutorial\src\Shader.cpp;C:\Users\spont\Documents\Projects\General\C++\Simulation\OpenGLTutorial\Debug\Shader.obj
 C:\Users\spont\Documents\Projects\General\C++\Simulation\OpenGLTutorial\src\Texture.cpp;C:\Users\spont\Documents\Projects\General\C++\Simulation\OpenGLTutorial\Debug\Texture.obj
 C:\Users\spont\Documents\Projects\General\C++\Simulation\OpenGLTutorial\src\vendor\glm\detail\glm.cpp;C:\Users\spont\Documents\Projects\General\C++\Simulation\OpenGLTutorial\Debug\glm.obj

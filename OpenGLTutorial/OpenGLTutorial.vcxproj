@@ -318,6 +318,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\IndexBuffer.h" />
+    <ClInclude Include="src\physicsObjects\Particle.h" />
     <ClInclude Include="src\physicsObjects\Solid.h" />
     <ClInclude Include="src\physicsObjects\World.h" />
     <ClInclude Include="src\Renderer.h" />

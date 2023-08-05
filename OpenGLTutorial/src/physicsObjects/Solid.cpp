@@ -1,11 +1,7 @@
+#pragma once
 #include "Solid.h"
 
 namespace world {
-
-	Solid::Solid() {
-		m_AllSolids[SAND] = SAND_INFO;
-		m_AllSolids[BARRIER] = BARRIER_INFO;
-	}
 
 	float Solid::getMass(Particle particle) {
 		float area = particle.radius;

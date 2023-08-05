@@ -1,12 +1,13 @@
 ﻿  Solid.cpp
-C:\Users\spont\Documents\Projects\General\C++\Simulation\OpenGLTutorial\src\physicsObjects\World.h(38,9): error C2079: 'world::World::m_Solids' uses undefined class 'world::Solid'
-C:\Users\spont\Documents\Projects\General\C++\Simulation\OpenGLTutorial\src\physicsObjects\Solid.cpp(5,9): error C2600: 'world::Solid::Solid': cannot define a compiler-generated special member function (must be declared in the class first)
   World.cpp
-C:\Users\spont\Documents\Projects\General\C++\Simulation\OpenGLTutorial\src\physicsObjects\World.h(38,9): error C2079: 'world::World::m_Solids' uses undefined class 'world::Solid'
-C:\Users\spont\Documents\Projects\General\C++\Simulation\OpenGLTutorial\src\physicsObjects\World.cpp(18,19): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-C:\Users\spont\Documents\Projects\General\C++\Simulation\OpenGLTutorial\src\physicsObjects\World.cpp(18,49): warning C4244: '+=': conversion from 'float' to 'int', possible loss of data
-C:\Users\spont\Documents\Projects\General\C++\Simulation\OpenGLTutorial\src\physicsObjects\World.cpp(19,20): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-C:\Users\spont\Documents\Projects\General\C++\Simulation\OpenGLTutorial\src\physicsObjects\World.cpp(19,50): warning C4244: '+=': conversion from 'float' to 'int', possible loss of data
 C:\Users\spont\Documents\Projects\General\C++\Simulation\OpenGLTutorial\src\physicsObjects\World.cpp(63,21): warning C4018: '<': signed/unsigned mismatch
 C:\Users\spont\Documents\Projects\General\C++\Simulation\OpenGLTutorial\src\physicsObjects\World.cpp(99,12): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Users\spont\Documents\Projects\General\C++\Simulation\OpenGLTutorial\src\physicsObjects\World.cpp(105,24): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+C:\Users\spont\Documents\Projects\General\C++\Simulation\OpenGLTutorial\src\physicsObjects\World.cpp(106,25): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+  Renderer.cpp
+  VertexBuffer.cpp
   Generating Code...
+LINK : warning LNK4098: defaultlib 'LIBCMT' conflicts with use of other libs; use /NODEFAULTLIB:library
+LINK : warning LNK4098: defaultlib 'MSVCRT' conflicts with use of other libs; use /NODEFAULTLIB:library
+glew32s.lib(glew.obj) : warning LNK4099: PDB '' was not found with 'glew32s.lib(glew.obj)' or at ''; linking object as if no debug info
+  OpenGLTutorial.vcxproj -> C:\Users\spont\Documents\Projects\General\C++\Simulation\Debug\Simulation.exe
