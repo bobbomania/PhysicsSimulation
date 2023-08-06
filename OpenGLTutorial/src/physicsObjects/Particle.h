@@ -8,7 +8,8 @@ namespace world {
 	enum SolidType {
 		NO_TYPE = -1,
 		SAND,
-		BARRIER
+		BARRIER,
+		LAST_NO_TYPE
 	};
 
 	struct SolidStruct {

@@ -1,13 +1,25 @@
-﻿  Solid.cpp
+﻿  Application.cpp
+  IndexBuffer.cpp
+  Solid.cpp
   World.cpp
-C:\Users\spont\Documents\Projects\General\C++\Simulation\OpenGLTutorial\src\physicsObjects\World.cpp(63,21): warning C4018: '<': signed/unsigned mismatch
-C:\Users\spont\Documents\Projects\General\C++\Simulation\OpenGLTutorial\src\physicsObjects\World.cpp(99,12): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-C:\Users\spont\Documents\Projects\General\C++\Simulation\OpenGLTutorial\src\physicsObjects\World.cpp(105,24): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
-C:\Users\spont\Documents\Projects\General\C++\Simulation\OpenGLTutorial\src\physicsObjects\World.cpp(106,25): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
   Renderer.cpp
+  Scene.cpp
+  SandScene.cpp
+  Shader.cpp
+  Texture.cpp
+  glm.cpp
+  imgui.cpp
+  imgui_demo.cpp
+  imgui_draw.cpp
+  imgui_impl_glfw.cpp
+  imgui_impl_opengl3.cpp
+  imgui_tables.cpp
+  imgui_widgets.cpp
+  stb_image.cpp
+  VertexArray.cpp
   VertexBuffer.cpp
   Generating Code...
 LINK : warning LNK4098: defaultlib 'LIBCMT' conflicts with use of other libs; use /NODEFAULTLIB:library
 LINK : warning LNK4098: defaultlib 'MSVCRT' conflicts with use of other libs; use /NODEFAULTLIB:library
-glew32s.lib(glew.obj) : warning LNK4099: PDB '' was not found with 'glew32s.lib(glew.obj)' or at ''; linking object as if no debug info
-  OpenGLTutorial.vcxproj -> C:\Users\spont\Documents\Projects\General\C++\Simulation\Debug\Simulation.exe
+Renderer.obj : error LNK2019: unresolved external symbol _gluOrtho2D@32 referenced in function "public: void __thiscall Renderer::DrawParticles(class world::World &)const " (?DrawParticles@Renderer@@QBEXAAVWorld@world@@@Z)
+C:\Users\spont\Documents\Projects\General\C++\Simulation\Debug\Simulation.exe : fatal error LNK1120: 1 unresolved externals

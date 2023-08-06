@@ -20,10 +20,10 @@ namespace world {
 			m_AllSolids[BARRIER] = BARRIER_INFO;
 		}
 
-		float getMass(Particle particle);
-		float getRestitution(Particle particle);
-		float getFriction(Particle particle);
-		bool isImmovable(Particle particle);
-		glm::vec4 getColor(Particle particle);
+		float getMass(Particle *particle);
+		float getRestitution(Particle *particle);
+		float getFriction(Particle *particle);
+		bool isImmovable(Particle *particle);
+		glm::vec4 getColor(Particle *particle);
 	};
 }
