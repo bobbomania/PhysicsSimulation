@@ -20,27 +20,36 @@
 
 namespace world {
 
+	using CellType = std::vector<Particle&>;
+
 	class World {
 	private:
 		float m_Delta;
-		std::vector<Particle> m_Particles;
+
+		std::vector<Particle> m_MovableParticles;
+		std::vector<Particle> m_ImmovableParticles;
 
 		Solid m_Solids;
 
 		// this grid is stored from top to bottom, left to right
-		std::array< std::vector<unsigned int>, TOT_CELLS > m_UniformGrid; 
+		std::array< CellType, TOT_CELLS > m_UniformGrid; 
 		glm::vec2 m_ZeroVector;
 
 	private:
 		void ClearGrid();
+
 		std::vector<int> ParticleToIndices(Particle particle);
 		int CoordToIndex(glm::vec2 coord);
+
+		void CheckCollisions(CellType particles);
 		void SimulateCollision(Particle p1, Particle p2);
 
 	public:
-		World() : m_ZeroVector(0.0f, 0.0f) {};
-		void Update();
+		World() : m_ZeroVector(0.0f, 0.0f), m_Delta(0.0f) {};
+
+		void Update(float delta);
+		void AddParticle(Particle particle);
+
 		void Draw(const Renderer& renderer);
-		void CheckCollisions(std::vector<unsigned int> particles);
 	};
 }

@@ -5,7 +5,16 @@ namespace world {
 	// resets the uniform grid
 	void World::ClearGrid()
 	{
-		memset(m_UniformGrid.data(), 0, sizeof(m_UniformGrid.data()));
+		for (int i = 0; i < TOT_CELLS; i++) {
+			m_UniformGrid[i] = CellType();
+		}
+
+		// add all immovable particles to grid
+		for (Particle particle : m_ImmovableParticles) {
+			for (int gridIndex : ParticleToIndices(particle)) {
+				m_UniformGrid[gridIndex].push_back(particle);
+			}
+		}
 	}
 
 	// returns the indices of the cells of the grid where the four corners of the particle rest on
@@ -18,6 +27,9 @@ namespace world {
 
 		for (float xShift = -r; xShift < r; xShift += r * 2) {
 			for (float yShift = -r; yShift < r; yShift += r * 2) {
+
+				// TODO: implement for particles bigger than cell
+
 				indices.push_back(CoordToIndex(pos + glm::vec2(xShift, yShift)));
 			}
 		}
@@ -54,24 +66,23 @@ namespace world {
 		p2.Vel = (m_Solids.isImmovable(p2)) ? (m_ZeroVector) : ((m_Solids.getRestitution(p2) * m1 * deltaVelocity + totMomentum) / totMass);
 	}
 
-	void World::Update()
+	void World::Update(float delta)
 	{
+		m_Delta = delta;
 		ClearGrid();
 
 		Particle particle;
 
 		// update particle physical attributes
-		for (int i = 0; i < m_Particles.size(); i++) {
+		for (Particle particle : m_MovableParticles) {
 			
-			particle = m_Particles[i];
-
 			particle.Pos += particle.Vel * m_Delta;
 			particle.Vel += particle.Acc * m_Delta;
-			particle.Acc += (m_Solids.isImmovable(particle) ? m_ZeroVector : GRAVITY_ACC); // temp
+			particle.Acc += GRAVITY_ACC; // temp
 
 			// update grid cells with new particle
 			for (int gridIndex : ParticleToIndices(particle)) {
-				m_UniformGrid[gridIndex].push_back(i);
+				m_UniformGrid[gridIndex].push_back(particle);
 			}
 		}
 
@@ -84,18 +95,41 @@ namespace world {
 		}
 	}
 
+	void World::AddParticle(Particle particle)
+	{
+		if (m_Solids.isImmovable(particle)) {
+			return m_ImmovableParticles.push_back(particle);
+		}
+
+		m_MovableParticles.push_back(particle);
+	}
+
 	// collision detection among a set of particles
-	void World::CheckCollisions(std::vector<unsigned int> particles)
+	void World::CheckCollisions(CellType particles)
 	{
 		int totParticles = particles.size();
+		if (totParticles < 2) return;
+
+		// as immovable particles are always added before movable particles,
+		// and collisions between immovable particles are trivial, we start checking collisions 
+		// only between immovable particles and movable particles, or btw. movable particles
+
+		int start; // index of first movable particle
+
+		// TODO: test, obviously
+		while (m_Solids.isImmovable(particles[start++]));
 		
 		for (int i = 0; i < totParticles; i++) {
-			for (int j = 0; j < totParticles; j++) {
+			// for all movable particles (idx >= start), discard checked pairs, 
+			// if immovable (idx < start), start at the first movable particle
+			for (int j = (i >= start ? i : start);
+					 j < totParticles; 
+					 j++) {
 				
 				if (i != j) {
 
-					Particle p1 = m_Particles[i];
-					Particle p2 = m_Particles[j];
+					Particle p1 = particles[i];
+					Particle p2 = particles[j];
 
 					int r = p1.radius;
 
