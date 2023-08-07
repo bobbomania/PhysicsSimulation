@@ -21,12 +21,13 @@ namespace world {
 	};
 
 	struct Particle {
+		float radius; // box shape assumed
+
 		glm::vec2 Pos;
 		glm::vec2 Vel;
 		glm::vec2 Acc;
 
 		SolidType type;
-		float radius; // box shape assumed
 	};
 
 }

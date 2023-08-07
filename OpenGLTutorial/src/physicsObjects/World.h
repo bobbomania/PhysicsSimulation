@@ -44,9 +44,9 @@ namespace world {
 		void SimulateCollision(Particle *p1, Particle *p2);
 
 	public:
-		World() : m_ZeroVector(0.0f, 0.0f), m_Delta(0.0f) {};
-
-		void IterateMovableParticles(void (*iter)(Particle *particle, World& world), World& world);
+		World(bool hasBoundaryBox = false);
+		void IterateMovableParticles(void (*iter)(Particle *particle, World& world));
+		void IterateImmovableParticles(void (*iter)(Particle* particle, World& world));
 		std::vector<int> ParticleToIndices(Particle *particle);
 
 		void Update(float delta);

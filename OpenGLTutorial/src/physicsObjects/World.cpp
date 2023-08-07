@@ -2,6 +2,46 @@
 
 namespace world {
 
+	World::World(bool hasBoundaryBox) : 
+		m_ZeroVector(0.0f, 0.0f), m_Delta(0.0f) {
+
+		if (hasBoundaryBox) {
+			float boundaryRadius = 10.0f;
+
+			Particle p1 = {
+				boundaryRadius,
+				{0,0},
+				{0,0},
+				{0,0},
+				BARRIER
+			};
+
+			// make top and bottom edges
+			for (float x = 0; x < WIDTH_W; x += boundaryRadius) {
+
+				p1.Pos = { x, 0.0f };
+				AddParticle(p1);
+
+				p1.Pos = { x, HEIGHT_W };
+				AddParticle(p1);
+
+			}
+
+			// make left and right edges
+			for (float y = 0; y < HEIGHT_W; y += boundaryRadius) {
+
+				p1.Pos = { 0.0f, y };
+				AddParticle(p1);
+
+				p1.Pos = { WIDTH_W, y };
+				AddParticle(p1);
+
+			}
+		}
+
+	};
+
+
 	// resets the uniform grid
 	void World::ClearGrid()
 	{
@@ -11,10 +51,14 @@ namespace world {
 
 		// add all immovable particles to grid
 		for (unsigned int i = 0; i < m_ImmovableParticles.size(); i++) {
-			Particle particle = m_ImmovableParticles[i];
+			Particle *particle = &m_ImmovableParticles[i];
 
-			for (int gridIndex : ParticleToIndices(&particle)) {
-				m_UniformGrid[gridIndex].push_back(&particle);
+			for (int gridIndex : ParticleToIndices(particle)) {
+
+				// temp
+				if (gridIndex >= TOT_CELLS || gridIndex < 0) continue;
+				
+				m_UniformGrid[gridIndex].push_back(particle);
 			}
 		}
 	}
@@ -68,15 +112,21 @@ namespace world {
 		p2->Vel = (m_Solids.isImmovable(p2)) ? (m_ZeroVector) : ((m_Solids.getRestitution(p2) * m1 * deltaVelocity + totMomentum) / totMass);
 	}
 
-	void World::IterateMovableParticles(void(*iter)(Particle *particle, World& world), World& world)
+	void World::IterateMovableParticles(void(*iter)(Particle *particle, World& world))
 	{
 		for (SolidType type = NO_TYPE; type < LAST_NO_TYPE; type = (SolidType)(type + 1)) {
-			std::vector<Particle> currTypeParticles = m_MovableParticles[type];
+			std::vector<Particle> *currTypeParticles = &m_MovableParticles[type];
 
 			// update particle physical attributes
-			for (unsigned int i = 0; i < currTypeParticles.size(); i++) {
-				(*iter)(&currTypeParticles[i], world);
+			for (unsigned int i = 0; i < currTypeParticles->size(); i++) {
+				(*iter)(&(*currTypeParticles)[i], *this);
 			}
+		}
+	}
+
+	void World::IterateImmovableParticles(void (*iter)(Particle* particle, World& world)) {
+		for (unsigned int i = 0; i < m_ImmovableParticles.size(); i++) {
+			(*iter)(&m_ImmovableParticles[i], *this);
 		}
 	}
 
@@ -98,7 +148,7 @@ namespace world {
 		m_Delta = delta;
 		
 		ClearGrid();
-		IterateMovableParticles(&UpdateParticlePhysics, *this);
+		IterateMovableParticles(&UpdateParticlePhysics);
 
 		// collision detection
 		for (int i = 0; i < TOT_CELLS; i++) {
@@ -111,6 +161,7 @@ namespace world {
 
 	void World::AddParticle(Particle particle)
 	{
+
 		if (m_Solids.isImmovable(&particle)) {
 			return m_ImmovableParticles.push_back(particle);
 		}
@@ -122,7 +173,9 @@ namespace world {
 	void World::CheckCollisions(CellType particles)
 	{
 		int totParticles = particles.size();
-		if (totParticles < 2) return;
+
+		// if the last particle is immovable, then all other particles are
+		if (totParticles < 2 || m_Solids.isImmovable(particles.back())) return;
 
 		// as immovable particles are always added before movable particles,
 		// and collisions between immovable particles are trivial, we start checking collisions 
@@ -131,7 +184,7 @@ namespace world {
 		int start = 0; // index of first movable particle
 
 		// TODO: test, obviously
-		while (m_Solids.isImmovable(particles[start++]));
+		while (start < totParticles && m_Solids.isImmovable(particles[start++]));
 		
 		for (int i = 0; i < totParticles; i++) {
 			// for all movable particles (idx >= start), discard checked pairs, 

@@ -1,6 +1,7 @@
 #pragma once
 
 #include <GL/glew.h>
+#include <GLFW/glfw3.h>
 
 #define WIDTH_W 960.0f
 #define HEIGHT_W 540.0f

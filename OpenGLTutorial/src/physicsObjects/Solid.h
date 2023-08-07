@@ -16,7 +16,7 @@ namespace world {
 	public:
 
 		Solid() {
-			m_AllSolids[SAND] = SAND_INFO;
+			m_AllSolids[SAND]    = SAND_INFO;
 			m_AllSolids[BARRIER] = BARRIER_INFO;
 		}
 

@@ -1,14 +1,13 @@
 #pragma once
 
+#include "Renderer.h"
 #include "Scene.h"
 
-#include "Texture.h"
-#include "VertexBufferLayout.h"
+#include "Utils.h"
 
-#include "glm/glm.hpp"
-#include "glm/gtc/matrix_transform.hpp"
-
+#include "imgui/imgui.h"
 #include <memory>
+
 
 namespace scene {
 	class SandScene : public Scene
@@ -21,12 +20,8 @@ namespace scene {
 		void OnRender() override;
 		void OnImGuiRender() override;
 	private:
-		std::unique_ptr<VertexArray> m_VAO;
-		std::unique_ptr<IndexBuffer> m_IndexBuffer;
-		std::unique_ptr<VertexBuffer> m_VertexBuffer;
-
-		std::unique_ptr<Shader> m_Shader;
-
-		glm::mat4 m_Proj, m_View;
+		Renderer m_Renderer;
+		world::World m_World;
+		ImGuiIO& m_Io;
 	};
 }

@@ -1,25 +1,20 @@
 ﻿  Application.cpp
   IndexBuffer.cpp
-  Solid.cpp
-  World.cpp
   Renderer.cpp
-  Scene.cpp
-  SandScene.cpp
+C:\Users\spont\Documents\Projects\General\C++\Simulation\OpenGLTutorial\src\Renderer.cpp(46,58): warning C4244: 'argument': conversion from 'T' to 'GLint', possible loss of data
+          with
+          [
+              T=float
+          ]
   Shader.cpp
   Texture.cpp
-  glm.cpp
-  imgui.cpp
-  imgui_demo.cpp
-  imgui_draw.cpp
-  imgui_impl_glfw.cpp
-  imgui_impl_opengl3.cpp
-  imgui_tables.cpp
-  imgui_widgets.cpp
-  stb_image.cpp
   VertexArray.cpp
   VertexBuffer.cpp
+  Solid.cpp
+  World.cpp
+  SandScene.cpp
   Generating Code...
 LINK : warning LNK4098: defaultlib 'LIBCMT' conflicts with use of other libs; use /NODEFAULTLIB:library
 LINK : warning LNK4098: defaultlib 'MSVCRT' conflicts with use of other libs; use /NODEFAULTLIB:library
-Renderer.obj : error LNK2019: unresolved external symbol _gluOrtho2D@32 referenced in function "public: void __thiscall Renderer::DrawParticles(class world::World &)const " (?DrawParticles@Renderer@@QBEXAAVWorld@world@@@Z)
-C:\Users\spont\Documents\Projects\General\C++\Simulation\Debug\Simulation.exe : fatal error LNK1120: 1 unresolved externals
+glew32s.lib(glew.obj) : warning LNK4099: PDB '' was not found with 'glew32s.lib(glew.obj)' or at ''; linking object as if no debug info
+  OpenGLTutorial.vcxproj -> C:\Users\spont\Documents\Projects\General\C++\Simulation\Debug\Simulation.exe
