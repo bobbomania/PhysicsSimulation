@@ -75,6 +75,9 @@
     <ClCompile Include="src\physicsObjects\Solid.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\physicsObjects\BoundaryShapeMaker.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="res\shaders\Basic.glsl.shader" />
@@ -1398,6 +1401,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\physicsObjects\Particle.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Utils.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\physicsObjects\BoundaryShapeMaker.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -9,7 +9,7 @@ namespace world {
 		NO_TYPE = -1,
 		SAND,
 		BARRIER,
-		LAST_NO_TYPE
+		LAST_SOLID_TYPE
 	};
 
 	struct SolidStruct {
@@ -28,6 +28,12 @@ namespace world {
 		glm::vec2 Acc;
 
 		SolidType type;
+	};
+
+	enum BoundaryType {
+		NO_BOUNDARY = 0,
+		BOX,
+		CIRCLE
 	};
 
 }

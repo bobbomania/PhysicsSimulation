@@ -37,27 +37,28 @@ void Renderer::Draw(const VertexArray& va, const IndexBuffer& ib, const Shader& 
 }
 
 void DrawParticle(world::Particle *particle, world::World& world) {
+    GLCall(glPointSize((GLfloat)particle->radius));
 
-    glPointSize((GLfloat) particle->radius);
+    glBegin(GL_POINTS);
 
     glm::vec4 color = world.m_Solids.getColor(particle);
-    glColor3f(color.r, color.g, color.b);
+    GLCall(glColor3f(color.r, color.g, color.b));
 
-    glVertex2i((GLint) particle->Pos.x, (GLint) HEIGHT_W - particle->Pos.y);
+    GLCall(glVertex2i((GLint) particle->Pos.x, (GLint) HEIGHT_W - particle->Pos.y));
+    glEnd();
+
 }
 
 void Renderer::DrawParticles(world::World& world) const {
 
     // setup opengl
     glClear(GL_COLOR_BUFFER_BIT);
-    glMatrixMode(GL_PROJECTION);
-    glLoadIdentity();
-    glOrtho(0.0, WIDTH_W, HEIGHT_W, 0.0, -1.0f, 1.0f);
+    GLCall(glMatrixMode(GL_PROJECTION));
+    GLCall(glLoadIdentity());
+    GLCall(glOrtho(0.0, WIDTH_W, HEIGHT_W, 0.0, -1.0f, 1.0f));
 
-    glBegin(GL_POINTS);
 
     world.IterateMovableParticles(*DrawParticle);
     world.IterateImmovableParticles(*DrawParticle);
 
-    glEnd();
 }

@@ -5,7 +5,7 @@
 namespace scene {
 
 	scene::SandScene::SandScene()
-        : m_Renderer(), m_World(true), m_Io(ImGui::GetIO())
+        : m_Renderer(), m_World(world::BoundaryType::CIRCLE), m_Io(ImGui::GetIO())
     {
 
         // blending

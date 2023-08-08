@@ -1,43 +1,16 @@
 #include "World.h"
 
+#include "BoundaryShapeMaker.h"
+
 namespace world {
 
-	World::World(bool hasBoundaryBox) : 
+	World::World(BoundaryType type) : 
 		m_ZeroVector(0.0f, 0.0f), m_Delta(0.0f) {
 
-		if (hasBoundaryBox) {
-			float boundaryRadius = 10.0f;
+		float boundaryRadius = 10.0f;
+		BoundaryShapeMaker boundaryShapeMaker(type, boundaryRadius);
 
-			Particle p1 = {
-				boundaryRadius,
-				{0,0},
-				{0,0},
-				{0,0},
-				BARRIER
-			};
-
-			// make top and bottom edges
-			for (float x = 0; x < WIDTH_W; x += boundaryRadius) {
-
-				p1.Pos = { x, 0.0f };
-				AddParticle(p1);
-
-				p1.Pos = { x, HEIGHT_W };
-				AddParticle(p1);
-
-			}
-
-			// make left and right edges
-			for (float y = 0; y < HEIGHT_W; y += boundaryRadius) {
-
-				p1.Pos = { 0.0f, y };
-				AddParticle(p1);
-
-				p1.Pos = { WIDTH_W, y };
-				AddParticle(p1);
-
-			}
-		}
+		boundaryShapeMaker.AddWorldBoundary(*this);
 
 	};
 
@@ -114,7 +87,7 @@ namespace world {
 
 	void World::IterateMovableParticles(void(*iter)(Particle *particle, World& world))
 	{
-		for (SolidType type = NO_TYPE; type < LAST_NO_TYPE; type = (SolidType)(type + 1)) {
+		for (SolidType type = NO_TYPE; type < LAST_SOLID_TYPE; type = (SolidType)(type + 1)) {
 			std::vector<Particle> *currTypeParticles = &m_MovableParticles[type];
 
 			// update particle physical attributes

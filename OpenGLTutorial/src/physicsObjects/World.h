@@ -1,3 +1,6 @@
+#ifndef WORLD_H
+#define WORLD_H
+
 #pragma once
 
 // class handling the update of the entire world, containing all physics objects
@@ -44,7 +47,7 @@ namespace world {
 		void SimulateCollision(Particle *p1, Particle *p2);
 
 	public:
-		World(bool hasBoundaryBox = false);
+		World(BoundaryType type = NO_BOUNDARY);
 		void IterateMovableParticles(void (*iter)(Particle *particle, World& world));
 		void IterateImmovableParticles(void (*iter)(Particle* particle, World& world));
 		std::vector<int> ParticleToIndices(Particle *particle);
@@ -53,3 +56,5 @@ namespace world {
 		void AddParticle(Particle particle);
 	};
 }
+
+#endif
