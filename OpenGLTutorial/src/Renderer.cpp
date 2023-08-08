@@ -56,7 +56,7 @@ void Renderer::DrawParticles(world::World& world) const {
     GLCall(glMatrixMode(GL_PROJECTION));
     GLCall(glLoadIdentity());
     GLCall(glOrtho(0.0, WIDTH_W, HEIGHT_W, 0.0, -1.0f, 1.0f));
-
+    // circle glEnable(GL_POINT_SMOOTH);
 
     world.IterateMovableParticles(*DrawParticle);
     world.IterateImmovableParticles(*DrawParticle);

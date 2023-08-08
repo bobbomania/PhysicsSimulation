@@ -17,19 +17,21 @@ namespace world {
 		float Friction;
 		float Restitution;
 		float Immovable;
+
 		glm::vec4 Color;
 	};
 
 	struct Particle {
-		float radius; // box shape assumed
+		float radius;
 
 		glm::vec2 Pos;
 		glm::vec2 Vel;
 		glm::vec2 Acc;
 
-		SolidType type;
+		SolidType type; 
 	};
 
+	// type of outer boundary
 	enum BoundaryType {
 		NO_BOUNDARY = 0,
 		BOX,

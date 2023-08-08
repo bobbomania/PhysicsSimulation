@@ -4,8 +4,9 @@
 
 #include "Particle.h"
 #include <unordered_map>
+#include <limits> // std::numeric_limits<float>::infinity();
 
-#define SAND_INFO { 0.5f, 0.5f, 0.5f, false, {1.0f, 1.0f, 0.0f, 1.0f} }
+#define SAND_INFO { 1.0f, 1.0f, 0.5f, false, {1.0f, 1.0f, 0.0f, 1.0f} }
 #define BARRIER_INFO { 1.0f, 0.5f, 1.0f, true, {1.0f, 0.0f, 0.0f, 1.0f} }
 
 namespace world {

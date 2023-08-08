@@ -12,9 +12,9 @@
 #include "Utils.h"
 #include "Solid.h"
 
-#define GRAVITY_ACC glm::vec2({0.0f, -10.0f})
+#define GRAVITY_ACC glm::vec2({0.0f, 0.0f})
 
-#define CELL_WIDTH 10 // in pixels, in reference to the uniform grid
+#define CELL_WIDTH 50 // in pixels, in reference to the uniform grid
 #define GRID_WIDTH (int) (WIDTH_W / CELL_WIDTH)
 #define GRID_HEIGHT (int) (HEIGHT_W / CELL_WIDTH)
 
@@ -40,8 +40,6 @@ namespace world {
 
 	private:
 		void ClearGrid();
-
-		int CoordToIndex(glm::vec2 coord);
 
 		void CheckCollisions(CellType particles);
 		void SimulateCollision(Particle *p1, Particle *p2);

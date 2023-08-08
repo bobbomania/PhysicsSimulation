@@ -1,2 +1,9 @@
-﻿  BoundaryShapeMaker.cpp
+﻿  Renderer.cpp
+C:\Users\spont\Documents\Projects\General\C++\Simulation\OpenGLTutorial\src\Renderer.cpp(47,5): warning C4244: 'argument': conversion from 'T' to 'GLint', possible loss of data
+          with
+          [
+              T=float
+          ]
+  SandScene.cpp
+  Generating Code...
   OpenGLTutorial.vcxproj -> C:\Users\spont\Documents\Projects\General\C++\Simulation\Debug\Simulation.exe

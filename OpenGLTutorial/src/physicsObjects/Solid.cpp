@@ -4,6 +4,9 @@
 namespace world {
 
 	float Solid::getMass(Particle *particle) {
+
+		if (particle->type == BARRIER) return std::numeric_limits<float>::max();
+
 		float area = particle->radius;
 		area *= area; // simply square it
 

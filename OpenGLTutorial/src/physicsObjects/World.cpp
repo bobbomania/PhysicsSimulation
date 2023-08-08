@@ -7,9 +7,9 @@ namespace world {
 	World::World(BoundaryType type) : 
 		m_ZeroVector(0.0f, 0.0f), m_Delta(0.0f) {
 
-		float boundaryRadius = 10.0f;
-		BoundaryShapeMaker boundaryShapeMaker(type, boundaryRadius);
+		float boundaryRadius = 5.0f;
 
+		BoundaryShapeMaker boundaryShapeMaker(type, boundaryRadius);
 		boundaryShapeMaker.AddWorldBoundary(*this);
 
 	};
@@ -28,9 +28,7 @@ namespace world {
 
 			for (int gridIndex : ParticleToIndices(particle)) {
 
-				// temp
-				if (gridIndex >= TOT_CELLS || gridIndex < 0) continue;
-				
+				// temp				
 				m_UniformGrid[gridIndex].push_back(particle);
 			}
 		}
@@ -44,11 +42,10 @@ namespace world {
 
 		float r = particle->radius;
 
-		for (float xShift = -r; xShift < r; xShift += r * 2) {
-			for (float yShift = -r; yShift < r; yShift += r * 2) {
+		for (float xShift = -r; xShift <= r; xShift += r * 2) {
+			for (float yShift = -r; yShift <= r; yShift += r * 2) {
 
 				// TODO: implement for particles bigger than cell
-
 				indices.push_back(CoordToIndex(pos + glm::vec2(xShift, yShift)));
 			}
 		}
@@ -57,7 +54,7 @@ namespace world {
 	}
 
 	// returns the index of the cell containing the given coordinate
-	int World::CoordToIndex(glm::vec2 coord)
+	int CoordToIndex(glm::vec2 coord)
 	{
 		int col = (int) coord.x / CELL_WIDTH; 
 		int row = (int) coord.y / CELL_WIDTH;
@@ -81,8 +78,10 @@ namespace world {
 		glm::vec2 deltaVelocity = p1->Vel - p2->Vel;
 		glm::vec2 totMomentum = m1 * p1->Vel + m2 * p2->Vel;
 
-		p1->Vel = (m_Solids.isImmovable(p1)) ? (m_ZeroVector) : ((m_Solids.getRestitution(p1) * m2 * -1 * deltaVelocity + totMomentum) / totMass);
-		p2->Vel = (m_Solids.isImmovable(p2)) ? (m_ZeroVector) : ((m_Solids.getRestitution(p2) * m1 * deltaVelocity + totMomentum) / totMass);
+		totMomentum /= totMass;
+
+		p1->Vel = (m_Solids.isImmovable(p1)) ? (m_ZeroVector) : ((m2 / totMass) * (m_Solids.getRestitution(p1) * -1 * deltaVelocity) + totMomentum);
+		p2->Vel = (m_Solids.isImmovable(p2)) ? (m_ZeroVector) : ((m1 / totMass) * (m_Solids.getRestitution(p2) * deltaVelocity) + totMomentum);
 	}
 
 	void World::IterateMovableParticles(void(*iter)(Particle *particle, World& world))
@@ -112,6 +111,8 @@ namespace world {
 
 		// update grid cells with new particle
 		for (int gridIndex : world.ParticleToIndices(particle)) {
+			if (gridIndex >= TOT_CELLS || gridIndex < 0) continue;
+
 			world.m_UniformGrid[gridIndex].push_back(particle);
 		}
 	}
@@ -154,10 +155,10 @@ namespace world {
 		// and collisions between immovable particles are trivial, we start checking collisions 
 		// only between immovable particles and movable particles, or btw. movable particles
 
-		int start = 0; // index of first movable particle
+		int start = -1; // index of first movable particle
 
 		// TODO: test, obviously
-		while (start < totParticles && m_Solids.isImmovable(particles[start++]));
+		while (start < totParticles && m_Solids.isImmovable(particles[++start]));
 		
 		for (int i = 0; i < totParticles; i++) {
 			// for all movable particles (idx >= start), discard checked pairs, 
@@ -177,8 +178,8 @@ namespace world {
 					glm::vec2 corner;
 
 					// if a corner of the collision box is within the other square, collision detected
-					for (float xShift = -r; xShift < r; xShift += r * 2) {
-						for (float yShift = -r; yShift < r; yShift += r * 2) {
+					for (float xShift = -r; xShift <= r; xShift += r * 2) {
+						for (float yShift = -r; yShift <= r; yShift += r * 2) {
 							
 							corner = p1->Pos + glm::vec2(xShift, yShift);
 							if (corner.x < p2Pos.x + r &&
@@ -189,9 +190,7 @@ namespace world {
 							}							
 						}
 					}
-
 				}
-
 			}
 		}
 	}

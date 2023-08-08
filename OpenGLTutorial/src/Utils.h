@@ -3,8 +3,8 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
-#define WIDTH_W 960.0f
-#define HEIGHT_W 540.0f
+#define WIDTH_W 1000.0f
+#define HEIGHT_W 600.0f
 
 // macro for asssert function, not supported by other c++ compilers
 #define ASSERT(x) if ((!x)) __debugbreak();

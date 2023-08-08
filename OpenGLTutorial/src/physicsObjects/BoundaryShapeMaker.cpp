@@ -17,24 +17,28 @@ namespace world {
 
 	void BoundaryShapeMaker::BoxBoundaryShape(World& world)
 	{
-		// make top and bottom edges
-		for (float x = 0; x < WIDTH_W; x += m_BoundaryRadius) {
 
-			m_Particle.Pos = { x, 0.0f };
+		float xShift = 60.0f;
+		float yShift = 60.0f;
+
+		// make top and bottom edges
+		for (float x = xShift; x < WIDTH_W - xShift; x += m_BoundaryRadius) {
+
+			m_Particle.Pos = { x, yShift };
 			world.AddParticle(m_Particle);
 
-			m_Particle.Pos = { x, HEIGHT_W };
+			m_Particle.Pos = { x, HEIGHT_W - yShift};
 			world.AddParticle(m_Particle);
 
 		}
 
 		// make left and right edges
-		for (float y = 0; y < HEIGHT_W; y += m_BoundaryRadius) {
+		for (float y = yShift; y < HEIGHT_W - yShift; y += m_BoundaryRadius) {
 
-			m_Particle.Pos = { 0.0f, y };
+			m_Particle.Pos = { xShift, y };
 			world.AddParticle(m_Particle);
 
-			m_Particle.Pos = { WIDTH_W, y };
+			m_Particle.Pos = { WIDTH_W - xShift, y };
 			world.AddParticle(m_Particle);
 		}
 	}
@@ -47,10 +51,14 @@ namespace world {
 		float radius = (HEIGHT_W > WIDTH_W) ? WIDTH_W : HEIGHT_W;
 		radius /= 2; // was diameter
 
+		float centerX = radius + (WIDTH_W / 2 - radius);
+		float centerY = radius + (HEIGHT_W / 2 - radius);
+
+
 		// make top and bottom edges
 		for (float theta = 0.0f; theta <= 2 * PI; theta += del) {
 
-			m_Particle.Pos = { radius + radius * cos(theta), radius + radius * sin(theta) };
+			m_Particle.Pos = { centerX + radius * cos(theta), centerY + radius * sin(theta) };
 			world.AddParticle(m_Particle);
 
 		}

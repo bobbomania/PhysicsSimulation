@@ -7,7 +7,7 @@
 #include <math.h> 
 #include "World.h"
 
-constexpr float PI = 3.14159265358979323f;
+constexpr float PI = 3.1415926f;
 
 namespace world {
 
