@@ -44,7 +44,7 @@ void DrawParticle(world::Particle *particle, world::World& world) {
     glm::vec4 color = world.m_Solids.getColor(particle);
     GLCall(glColor3f(color.r, color.g, color.b));
 
-    GLCall(glVertex2i((GLint) particle->Pos.x, (GLint) HEIGHT_W - particle->Pos.y));
+    GLCall(glVertex2i((GLint) (int) particle->Pos.x, (GLint) (int) (HEIGHT_W - particle->Pos.y)));
     glEnd();
 
 }
@@ -56,7 +56,7 @@ void Renderer::DrawParticles(world::World& world) const {
     GLCall(glMatrixMode(GL_PROJECTION));
     GLCall(glLoadIdentity());
     GLCall(glOrtho(0.0, WIDTH_W, HEIGHT_W, 0.0, -1.0f, 1.0f));
-    // circle glEnable(GL_POINT_SMOOTH);
+    //circle glEnable(GL_POINT_SMOOTH);
 
     world.IterateMovableParticles(*DrawParticle);
     world.IterateImmovableParticles(*DrawParticle);

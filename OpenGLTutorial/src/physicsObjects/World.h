@@ -9,16 +9,8 @@
 #include <vector>
 #include <memory>
 
-#include "Utils.h"
 #include "Solid.h"
-
-#define GRAVITY_ACC glm::vec2({0.0f, 0.0f})
-
-#define CELL_WIDTH 50 // in pixels, in reference to the uniform grid
-#define GRID_WIDTH (int) (WIDTH_W / CELL_WIDTH)
-#define GRID_HEIGHT (int) (HEIGHT_W / CELL_WIDTH)
-
-#define TOT_CELLS GRID_WIDTH * GRID_HEIGHT
+#include "Particle.h"
 
 namespace world {
 
@@ -48,7 +40,6 @@ namespace world {
 		World(BoundaryType type = NO_BOUNDARY);
 		void IterateMovableParticles(void (*iter)(Particle *particle, World& world));
 		void IterateImmovableParticles(void (*iter)(Particle* particle, World& world));
-		std::vector<int> ParticleToIndices(Particle *particle);
 
 		void Update(float delta);
 		void AddParticle(Particle particle);

@@ -28,4 +28,8 @@ namespace world {
 	glm::vec4 Solid::getColor(Particle *particle) {
 		return m_AllSolids[particle->type].Color;
 	}
+	Collider *Solid::getCollider(Particle* particle)
+	{
+		return m_AllSolids[particle->type].Collider;
+	}
 }

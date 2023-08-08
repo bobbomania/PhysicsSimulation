@@ -1,9 +1,13 @@
-﻿  Renderer.cpp
-C:\Users\spont\Documents\Projects\General\C++\Simulation\OpenGLTutorial\src\Renderer.cpp(47,5): warning C4244: 'argument': conversion from 'T' to 'GLint', possible loss of data
-          with
-          [
-              T=float
-          ]
+﻿  Application.cpp
+  IndexBuffer.cpp
+  BoundaryShapeMaker.cpp
+  Solid.cpp
+  World.cpp
+  Renderer.cpp
   SandScene.cpp
+  Shader.cpp
+  Texture.cpp
+  VertexArray.cpp
+  VertexBuffer.cpp
   Generating Code...
   OpenGLTutorial.vcxproj -> C:\Users\spont\Documents\Projects\General\C++\Simulation\Debug\Simulation.exe

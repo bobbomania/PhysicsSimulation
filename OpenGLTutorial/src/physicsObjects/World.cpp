@@ -14,7 +14,6 @@ namespace world {
 
 	};
 
-
 	// resets the uniform grid
 	void World::ClearGrid()
 	{
@@ -26,7 +25,7 @@ namespace world {
 		for (unsigned int i = 0; i < m_ImmovableParticles.size(); i++) {
 			Particle *particle = &m_ImmovableParticles[i];
 
-			for (int gridIndex : ParticleToIndices(particle)) {
+			for (int gridIndex : m_Solids.getCollider(particle)->GetColliderPoints(particle)) {
 
 				// temp				
 				m_UniformGrid[gridIndex].push_back(particle);
@@ -34,39 +33,12 @@ namespace world {
 		}
 	}
 
-	// returns the indices of the cells of the grid where the four corners of the particle rest on
-	std::vector<int> World::ParticleToIndices(Particle *particle)
-	{
-		glm::vec2 pos = particle->Pos;
-		std::vector<int> indices;
-
-		float r = particle->radius;
-
-		for (float xShift = -r; xShift <= r; xShift += r * 2) {
-			for (float yShift = -r; yShift <= r; yShift += r * 2) {
-
-				// TODO: implement for particles bigger than cell
-				indices.push_back(CoordToIndex(pos + glm::vec2(xShift, yShift)));
-			}
-		}
-
-		return indices;
-	}
-
-	// returns the index of the cell containing the given coordinate
-	int CoordToIndex(glm::vec2 coord)
-	{
-		int col = (int) coord.x / CELL_WIDTH; 
-		int row = (int) coord.y / CELL_WIDTH;
-
-		return (col - 1) * GRID_HEIGHT + row; // top to bottom, left to right
-	}
 
 	void World::SimulateCollision(Particle *p1, Particle *p2)
 	{
-		// revert them to original pre-collision position, also could move them 1/2 distance between centers
-		p1->Pos += -p1->Vel * m_Delta;
-		p2->Pos += -p2->Vel * m_Delta;
+
+		m_Solids.getCollider(p1)->FixCollisionOverlap(p1, p2, m_Delta);
+		m_Solids.getCollider(p2)->FixCollisionOverlap(p2, p1, m_Delta);
 
 		// calculate new velocity with conservation of momentum and kinetic energy
 
@@ -105,12 +77,14 @@ namespace world {
 
 	void UpdateParticlePhysics(Particle *particle, World& world)
 	{
+		Solid solids;
+
 		particle->Pos += particle->Vel * world.m_Delta;
 		particle->Vel += particle->Acc * world.m_Delta;
 		particle->Acc  = GRAVITY_ACC; // temp
 
 		// update grid cells with new particle
-		for (int gridIndex : world.ParticleToIndices(particle)) {
+		for (int gridIndex : solids.getCollider(particle)->GetColliderPoints(particle)) {
 			if (gridIndex >= TOT_CELLS || gridIndex < 0) continue;
 
 			world.m_UniformGrid[gridIndex].push_back(particle);
@@ -135,7 +109,6 @@ namespace world {
 
 	void World::AddParticle(Particle particle)
 	{
-
 		if (m_Solids.isImmovable(&particle)) {
 			return m_ImmovableParticles.push_back(particle);
 		}
@@ -164,32 +137,17 @@ namespace world {
 			// for all movable particles (idx >= start), discard checked pairs, 
 			// if immovable (idx < start), start at the first movable particle
 			for (int j = (i >= start ? i : start);
-					 j < totParticles; 
-					 j++) {
-				
+				j < totParticles;
+				j++) {
+
 				if (i != j) {
 
-					Particle *p1 = particles[i];
-					Particle *p2 = particles[j];
+					Particle* p1 = particles[i];
+					Particle* p2 = particles[j];
 
-					float r = p1->radius;
+					if (m_Solids.getCollider(p1)->DetectCollision(p1, p2))
+						SimulateCollision(p1, p2);
 
-					glm::vec2 p2Pos = p2->Pos;
-					glm::vec2 corner;
-
-					// if a corner of the collision box is within the other square, collision detected
-					for (float xShift = -r; xShift <= r; xShift += r * 2) {
-						for (float yShift = -r; yShift <= r; yShift += r * 2) {
-							
-							corner = p1->Pos + glm::vec2(xShift, yShift);
-							if (corner.x < p2Pos.x + r &&
-								corner.x > p2Pos.x - r &&
-								corner.y < p2Pos.y + r &&
-								corner.y > p2Pos.y - r) {
-								SimulateCollision(p1, p2);
-							}							
-						}
-					}
 				}
 			}
 		}

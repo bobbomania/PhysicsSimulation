@@ -159,6 +159,7 @@
     <ClCompile Include="src\Application.cpp" />
     <ClCompile Include="src\IndexBuffer.cpp" />
     <ClCompile Include="src\physicsObjects\BoundaryShapeMaker.cpp" />
+    <ClCompile Include="src\physicsObjects\BoxCollider.cpp" />
     <ClCompile Include="src\physicsObjects\Solid.cpp" />
     <ClCompile Include="src\physicsObjects\World.cpp" />
     <ClCompile Include="src\Renderer.cpp" />
@@ -320,8 +321,11 @@
   <ItemGroup>
     <ClInclude Include="src\IndexBuffer.h" />
     <ClInclude Include="src\physicsObjects\BoundaryShapeMaker.h" />
+    <ClInclude Include="src\physicsObjects\BoxCollider.h" />
+    <ClInclude Include="src\physicsObjects\Collider.h" />
     <ClInclude Include="src\physicsObjects\Particle.h" />
     <ClInclude Include="src\physicsObjects\Solid.h" />
+    <ClInclude Include="src\physicsObjects\SolidUtils.h" />
     <ClInclude Include="src\physicsObjects\World.h" />
     <ClInclude Include="src\Renderer.h" />
     <ClInclude Include="src\scenes\Scene.h" />

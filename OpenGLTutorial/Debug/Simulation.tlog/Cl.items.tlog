@@ -1,6 +1,7 @@
 C:\Users\spont\Documents\Projects\General\C++\Simulation\OpenGLTutorial\src\Application.cpp;C:\Users\spont\Documents\Projects\General\C++\Simulation\OpenGLTutorial\Debug\Application.obj
 C:\Users\spont\Documents\Projects\General\C++\Simulation\OpenGLTutorial\src\IndexBuffer.cpp;C:\Users\spont\Documents\Projects\General\C++\Simulation\OpenGLTutorial\Debug\IndexBuffer.obj
 C:\Users\spont\Documents\Projects\General\C++\Simulation\OpenGLTutorial\src\physicsObjects\BoundaryShapeMaker.cpp;C:\Users\spont\Documents\Projects\General\C++\Simulation\OpenGLTutorial\Debug\BoundaryShapeMaker.obj
+C:\Users\spont\Documents\Projects\General\C++\Simulation\OpenGLTutorial\src\physicsObjects\BoxCollider.cpp;C:\Users\spont\Documents\Projects\General\C++\Simulation\OpenGLTutorial\Debug\BoxCollider.obj
 C:\Users\spont\Documents\Projects\General\C++\Simulation\OpenGLTutorial\src\physicsObjects\Solid.cpp;C:\Users\spont\Documents\Projects\General\C++\Simulation\OpenGLTutorial\Debug\Solid.obj
 C:\Users\spont\Documents\Projects\General\C++\Simulation\OpenGLTutorial\src\physicsObjects\World.cpp;C:\Users\spont\Documents\Projects\General\C++\Simulation\OpenGLTutorial\Debug\World.obj
 C:\Users\spont\Documents\Projects\General\C++\Simulation\OpenGLTutorial\src\Renderer.cpp;C:\Users\spont\Documents\Projects\General\C++\Simulation\OpenGLTutorial\Debug\Renderer.obj

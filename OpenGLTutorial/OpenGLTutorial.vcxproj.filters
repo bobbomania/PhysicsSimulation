@@ -78,6 +78,9 @@
     <ClCompile Include="src\physicsObjects\BoundaryShapeMaker.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\physicsObjects\BoxCollider.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="res\shaders\Basic.glsl.shader" />
@@ -1407,6 +1410,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\physicsObjects\BoundaryShapeMaker.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\physicsObjects\Collider.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\physicsObjects\BoxCollider.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\physicsObjects\SolidUtils.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
